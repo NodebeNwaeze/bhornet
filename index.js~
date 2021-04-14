@@ -8,8 +8,7 @@ const binance = new Binance().options({
   try{
    var futureprices = await binance.futuresPrices();
    var bnbusdt = futureprices.BNBUSDT;
-   var spot_prices = await binance.prices('BNBUSDT');
-   var spot_bnb_usdt = spot_prices.BNBUSDT; 
+   var spot_bnb_usdt = await binance.prices('BNBUSDT'); 
    console.info( spot_bnb_usdt  );
    }catch(e){
    console.log(e+" ----- erro geting BNBUSDT futures price or BNB/USDT spot price");
