@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lambert Nnadi",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "node-binance-api": "^0.12.5"
+  }
 }
