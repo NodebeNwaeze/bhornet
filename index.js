@@ -5,7 +5,7 @@ const binance = new Binance().options({
 });
 
   var static_vars = {
-    spendAmount:50,
+    spendAmount:70,
     leverage:10,
     opendorder:false,
     expectedbnbusdt:0,
