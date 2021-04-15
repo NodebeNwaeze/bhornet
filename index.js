@@ -36,7 +36,7 @@ const binance = new Binance().options({
         check_a_p_order();
       }
     }catch(e){
-      console.log("------------------Erro"+e.message+"------------------Erro END")
+      console.log("------------------Erro"+e.toString()+"------------------Erro END")
     }
   }
   
@@ -72,7 +72,7 @@ const binance = new Binance().options({
     console.info(futures_order);
     console.log(spot_order);
   }catch(e){
-    console.log("------------------Erro"+e.message+"------------------Erro END")
+    console.log("------------------Erro"+e.toString()+"------------------Erro END")
   }
   }
 
@@ -83,7 +83,7 @@ const binance = new Binance().options({
     console.log("spot order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
-    console.log("------------------Erro:"+e.message+"------------------spot order Erro END")
+    console.log("------------------Erro:"+e.toString()+"------------------spot order Erro END")
   }
   }
 
@@ -94,7 +94,7 @@ const binance = new Binance().options({
     console.log("futures order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
-    console.log("------------------Erro:"+e.message+"------------------futures order Erro END")
+    console.log("------------------Erro:"+e.toString()+"------------------futures order Erro END")
   }
   }
 
@@ -102,7 +102,7 @@ const binance = new Binance().options({
     try{
     var levrageAdjust = await binance.futuresLeverage( static_vars.pair, static_vars.leverage );
   }catch(e){
-    console.log("------------------Erro"+e.message+"------------------Erro END")
+    console.log("------------------Erro"+e.toString()+"------------------Erro END")
   }
   }
 
