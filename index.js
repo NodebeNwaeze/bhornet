@@ -47,7 +47,7 @@ const binance = new Binance().options({
   var placeOrders = async function(){
     var f_stake_amount = static_vars.spendAmount / static_vars.leverage;
     var levrageAdjust = await binance.futuresLeverage( 'BNBUSDT', static_vars.leverage );
-    var futures_order = await binance.futuresMarketBuy( 'BNBUSDT', f_stake_amount );
+    var futures_order = await binance.futuresMarketSell( 'BNBUSDT', f_stake_amount );
     static_vars.futures_orderID = futures_order.orderId;
     static_vars.opendorder = true;
     console.info( await binance.futuresBalance() );
