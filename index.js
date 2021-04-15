@@ -25,7 +25,7 @@ const binance = new Binance().options({
         var spot_bnb_usdt = spot_prices.BNBUSDT; 
   
         var prev_order = await binance.futuresOrderStatus( static_vars.pair, {orderId: static_vars.futures_orderID} ) 
-        console.log(prev_order);
+        
         if(bnbusdt >= static_vars.expectedbnbusdt){
           closebnbusdtOrder();
         }else if(prev_order.status !== "FILLED"){
@@ -63,7 +63,8 @@ const binance = new Binance().options({
     var final_f_stake_amount = Number( (f_stake_amount/bnbusdt).toPrecision(1) );
     var spot_stake_amount = Number( (static_vars.spendAmount/spot_bnb_usdt).toPrecision(1) );
 
-    var spot_order = binance.marketBuy(static_vars.pair, spot_stake_amount);
+    var spot_order = await binance.marketBuy(static_vars.pair, spot_stake_amount);
+    console.log(spot_order);
     static_vars.purchase_spot_quantity = spot_stake_amount;
     var futures_order = await binance.futuresMarketSell( static_vars.pair, final_f_stake_amount);
     static_vars.futures_orderID = futures_order.orderId;
@@ -82,7 +83,7 @@ const binance = new Binance().options({
     console.log("spot order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
-    console.log("------------------Erro"+e+"------------------Erro END")
+    console.log("------------------Erro:"+e+"------------------spot order Erro END")
   }
   }
 
@@ -93,7 +94,7 @@ const binance = new Binance().options({
     console.log("futures order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
-    console.log("------------------Erro"+e+"------------------Erro END")
+    console.log("------------------Erro:"+e+"------------------futures order Erro END")
   }
   }
 
