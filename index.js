@@ -5,15 +5,15 @@ const binance = new Binance().options({
 });
 
   var static_vars = {
-    spendAmount:70,
-    leverage:10,
+    spendAmount:75,
+    leverage:75,
     opendorder:false,
     expectedbnbusdt:0,
     expectedSpot_bnb_usdt:0,
     futures_orderID:"",
     purchase_spot_quantity:0,
     purchase_spot_price:0,
-    pair:"BNBUSDT",
+    pair:"ADAUSDT",
     pair_step: 0.01,
     onceFlag: false
   }
@@ -52,13 +52,13 @@ const binance = new Binance().options({
   var check_a_p_order = async function(){
   try{
    var futureprices = await binance.futuresPrices();
-   var bnbusdt = futureprices.BNBUSDT;
+   var bnbusdt = futureprices.ADAUSDT;
    var spot_prices = await binance.prices(static_vars.pair);
-   var spot_bnb_usdt = spot_prices.BNBUSDT; 
+   var spot_bnb_usdt = spot_prices.ADAUSDT; 
    
    console.info(bnbusdt+" | "+spot_bnb_usdt+" Diff: "+((bnbusdt - spot_bnb_usdt) * -1));
 
-    if((bnbusdt - spot_bnb_usdt) >= 1 || (spot_bnb_usdt - bnbusdt) >= 1){
+    if((bnbusdt - spot_bnb_usdt) >= 0.0002 || (spot_bnb_usdt - bnbusdt) >= 0.0002){
       placeOrders(bnbusdt,spot_bnb_usdt);
     }
 
