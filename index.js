@@ -63,14 +63,14 @@ const binance = new Binance().options({
     var final_f_stake_amount = Number( (f_stake_amount/bnbusdt).toPrecision(1) );
     var spot_stake_amount = Number( (static_vars.spendAmount/spot_bnb_usdt).toPrecision(1) );
 
-    var spot_order = await binance.marketBuy(static_vars.pair, spot_stake_amount);
+    // var spot_order = await binance.marketBuy(static_vars.pair, spot_stake_amount);
     static_vars.purchase_spot_quantity = spot_stake_amount;
     var futures_order = await binance.futuresMarketSell( static_vars.pair, final_f_stake_amount);
     static_vars.futures_orderID = futures_order.orderId;
     static_vars.opendorder = true;
     console.info( final_f_stake_amount );
     console.info(futures_order);
-    console.log(spot_order);
+    // console.log(spot_order);
   }catch(e){
     console.log("------------------Erro: "+e+"------------------order placement Erro END")
   }
