@@ -25,8 +25,8 @@ const binance = new Binance().options({
 
           var futureprices = await binance.futuresPrices();
           var bnbusdt = futureprices.BNBUSDT;
-          var spot_prices = await binance.prices(static_vars.pair);
-          var spot_bnb_usdt = spot_prices.BNBUSDT; 
+          // var spot_prices = await binance.prices(static_vars.pair);
+          // var spot_bnb_usdt = spot_prices.BNBUSDT; 
     
           var prev_order = await binance.futuresOrderStatus( static_vars.pair, {orderId: static_vars.futures_orderID} ) 
           
@@ -55,8 +55,9 @@ const binance = new Binance().options({
    var spot_prices = await binance.prices(static_vars.pair);
    var spot_bnb_usdt = spot_prices.BNBUSDT; 
    
+   console.log(bnbusdt+" | "+spot_bnb_usdt);
+
     if((bnbusdt - spot_bnb_usdt) >= 1 || (spot_bnb_usdt - bnbusdt) >= 1){
-      console.log(bnbusdt+" | "+spot_bnb_usdt);
       placeOrders(bnbusdt,spot_bnb_usdt);
     }
 
