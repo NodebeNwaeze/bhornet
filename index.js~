@@ -83,8 +83,8 @@ const binance = new Binance().options({
   var closespot_bnb_usdtOrder = async function(){
     try{
     console.log("Closing spot order \n-----------------------------------------------------------");
-    console.info( await binance.marketSell(static_vars.pair, static_vars.purchase_spot_quantity) +"\n");
-    console.log("spot order closed successfully-------------------------------------------------------------------");
+    console.info( await binance.marketSell(static_vars.pair, static_vars.purchase_spot_quantity));
+    console.log("\n spot order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
     console.log("------------------Erro:"+e+"------------------spot order Erro END")
@@ -94,8 +94,9 @@ const binance = new Binance().options({
   var closebnbusdtOrder = async function(){
     try{
     console.log("Closing futures order \n-----------------------------------------------------------");
-    console.info( await binance.futuresCancel( static_vars.pair, {orderId: static_vars.futures_orderID} ) +"\n");
-    console.log("futures order closed successfully-------------------------------------------------------------------");
+    console.log(static_vars.futures_orderID);
+    console.info( await binance.futuresCancelAll(static_vars.pair));
+    console.log("\n futures order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
     console.log("------------------Erro:"+e+"------------------futures order Erro END")
