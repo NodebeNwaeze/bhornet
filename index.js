@@ -36,7 +36,7 @@ const binance = new Binance().options({
    
     if((bnbusdt - spot_bnb_usdt) >= 1 || (spot_bnb_usdt - bnbusdt) >= 1){
       console.log(bnbusdt+" | "+spot_bnb_usdt);
-      placeOrders();
+      placeOrders(bnbusdt,spot_bnb_usdt);
     }
 
    }catch(e){
@@ -44,10 +44,10 @@ const binance = new Binance().options({
     }
     };
 
-  var placeOrders = async function(){
+  var placeOrders = async function(bnbusdt,spot_bnb_usdt){
     var f_stake_amount = static_vars.spendAmount / static_vars.leverage;
     var levrageAdjust = await binance.futuresLeverage( 'BNBUSDT', static_vars.leverage );
-    var futures_order = await binance.futuresMarketSell( 'BNBUSDT', f_stake_amount );
+    var futures_order = await binance.futuresMarketSell( 'BNBUSDT', (f_stake_amount/bnbusdt) );
     static_vars.futures_orderID = futures_order.orderId;
     static_vars.opendorder = true;
     console.info( await binance.futuresBalance() );
