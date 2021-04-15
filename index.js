@@ -111,4 +111,4 @@ const binance = new Binance().options({
   }
 
     acc_setup();
-    setInterval(start, 3000);
+    setInterval(start, 8000);
