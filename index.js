@@ -95,7 +95,7 @@ const binance = new Binance().options({
     try{
     console.log("Closing futures order \n-----------------------------------------------------------");
     console.log(static_vars.futures_orderID);
-    console.info( await binance.futuresCancel( static_vars.pair, {orderId: static_vars.futures_orderID} ));
+    console.info( await binance.futuresCancel( static_vars.pair, {orderId: static_vars.futures_orderID+""} ));
     console.log("\n futures order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
