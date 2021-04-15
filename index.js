@@ -36,7 +36,7 @@ const binance = new Binance().options({
         check_a_p_order();
       }
     }catch(e){
-      console.log("------------------Erro"+e+"------------------Erro END")
+      console.log("------------------Erro"+e.message+"------------------Erro END")
     }
   }
   
@@ -64,15 +64,15 @@ const binance = new Binance().options({
     var spot_stake_amount = Number( (static_vars.spendAmount/spot_bnb_usdt).toPrecision(1) );
 
     var spot_order = await binance.marketBuy(static_vars.pair, spot_stake_amount);
-    console.log(spot_order);
     static_vars.purchase_spot_quantity = spot_stake_amount;
     var futures_order = await binance.futuresMarketSell( static_vars.pair, final_f_stake_amount);
     static_vars.futures_orderID = futures_order.orderId;
     static_vars.opendorder = true;
     console.info( final_f_stake_amount );
     console.info(futures_order);
+    console.log(spot_order);
   }catch(e){
-    console.log("------------------Erro"+e+"------------------Erro END")
+    console.log("------------------Erro"+e.message+"------------------Erro END")
   }
   }
 
@@ -83,7 +83,7 @@ const binance = new Binance().options({
     console.log("spot order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
-    console.log("------------------Erro:"+e+"------------------spot order Erro END")
+    console.log("------------------Erro:"+e.message+"------------------spot order Erro END")
   }
   }
 
@@ -94,7 +94,7 @@ const binance = new Binance().options({
     console.log("futures order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
-    console.log("------------------Erro:"+e+"------------------futures order Erro END")
+    console.log("------------------Erro:"+e.message+"------------------futures order Erro END")
   }
   }
 
@@ -102,7 +102,7 @@ const binance = new Binance().options({
     try{
     var levrageAdjust = await binance.futuresLeverage( static_vars.pair, static_vars.leverage );
   }catch(e){
-    console.log("------------------Erro"+e+"------------------Erro END")
+    console.log("------------------Erro"+e.message+"------------------Erro END")
   }
   }
 
