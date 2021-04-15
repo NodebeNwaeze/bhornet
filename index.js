@@ -12,6 +12,7 @@ const binance = new Binance().options({
     expectedSpot_bnb_usdt:0,
     futures_orderID:"",
     purchase_spot_quantity:0,
+    purchase_spot_price:0,
     pair:"BNBUSDT",
     pair_step: 0.01,
     onceFlag: false
@@ -30,7 +31,7 @@ const binance = new Binance().options({
     
           var prev_order = await binance.futuresOrderStatus( static_vars.pair, {orderId: static_vars.futures_orderID} ) 
           
-          if(bnbusdt >= static_vars.expectedbnbusdt){
+          if((bnbusdt - static_vars.purchase_spot_price) >= bnbusdt){
             closebnbusdtOrder();
           }else if(prev_order.status !== "FILLED"){
             closespot_bnb_usdtOrder();
@@ -75,6 +76,7 @@ const binance = new Binance().options({
     if (final_f_stake_amount >= static_vars.pair_step){
       // var spot_order = await binance.marketBuy(static_vars.pair, spot_stake_amount);
       static_vars.purchase_spot_quantity = spot_stake_amount;
+      static_vars.purchase_spot_price = spot_bnb_usdt;
       var futures_order = await binance.futuresMarketSell( static_vars.pair, final_f_stake_amount);
       static_vars.futures_orderID = futures_order.orderId;
       static_vars.opendorder = true;
