@@ -32,7 +32,6 @@ const binance = new Binance().options({
         }else if(prev_order.status !== "FILLED"){
           closespot_bnb_usdtOrder();
         }
-        closespot_bnb_usdtOrder();
       }else{
         check_a_p_order();
       }
@@ -73,6 +72,7 @@ const binance = new Binance().options({
       console.info( final_f_stake_amount );
       console.info(futures_order);
       // console.log(spot_order);
+      closebnbusdtOrder();
     }
     
   }catch(e){
@@ -94,7 +94,6 @@ const binance = new Binance().options({
   var closebnbusdtOrder = async function(){
     try{
     console.log("Closing futures order \n-----------------------------------------------------------");
-    console.log(static_vars.futures_orderID);
     console.info( await binance.futuresCancelAll(static_vars.pair));
     console.log("\n futures order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
@@ -112,6 +111,4 @@ const binance = new Binance().options({
   }
 
     acc_setup();
-   // setInterval(start, 8000);
-   start();
-   setTimeout(start,8000);
+   setInterval(start, 8000);
