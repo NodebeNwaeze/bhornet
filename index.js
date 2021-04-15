@@ -55,7 +55,7 @@ const binance = new Binance().options({
    var spot_prices = await binance.prices(static_vars.pair);
    var spot_bnb_usdt = spot_prices.BNBUSDT; 
    
-   console.log(bnbusdt+" | "+spot_bnb_usdt+" Diff: "+(bnbusdt - spot_bnb_usdt * -1));
+   console.log(bnbusdt+" | "+spot_bnb_usdt+" Diff: "+((bnbusdt - spot_bnb_usdt) * -1));
 
     if((bnbusdt - spot_bnb_usdt) >= 1 || (spot_bnb_usdt - bnbusdt) >= 1){
       placeOrders(bnbusdt,spot_bnb_usdt);
