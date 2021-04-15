@@ -20,7 +20,7 @@ const binance = new Binance().options({
 
   var start = async function(){
     try{
-      if(!static_vars.onceFlag){
+      // if(!static_vars.onceFlag){
 
         if(static_vars.opendorder){
 
@@ -41,9 +41,9 @@ const binance = new Binance().options({
           check_a_p_order();
         }
 
-      }else{
-        closebnbusdtOrder();
-      }
+      // }else{
+      //   closebnbusdtOrder();
+      // }
     }catch(e){
       console.log("------------------Erro: "); console.log(e); console.log("------------------ previous futures order status Erro END");
     }
