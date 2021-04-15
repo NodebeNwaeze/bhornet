@@ -46,11 +46,12 @@ const binance = new Binance().options({
 
   var placeOrders = async function(bnbusdt,spot_bnb_usdt){
     var f_stake_amount = static_vars.spendAmount / static_vars.leverage;
+    var final_f_stake_amount = Number( (f_stake_amount/bnbusdt).toPrecision(1) );
     var levrageAdjust = await binance.futuresLeverage( 'BNBUSDT', static_vars.leverage );
-    var futures_order = await binance.futuresMarketSell( 'BNBUSDT', Number( (f_stake_amount/bnbusdt).toPrecision(1) ) );
+    var futures_order = await binance.futuresMarketSell( 'BNBUSDT', final_f_stake_amount);
     static_vars.futures_orderID = futures_order.orderId;
     static_vars.opendorder = true;
-    console.info( await binance.futuresBalance() );
+    console.info( final_f_stake_amount );
     console.info(futures_order);
   }
 
