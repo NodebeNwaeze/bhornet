@@ -50,7 +50,7 @@ const binance = new Binance().options({
     var futures_order = await binance.futuresMarketBuy( 'BNBUSDT', f_stake_amount );
     static_vars.futures_orderID = futures_order.orderId;
     static_vars.opendorder = true;
-    console.log(f_stake_amount);
+    console.info( await binance.futuresBalance() );
     console.info(futures_order);
   }
 
