@@ -48,7 +48,7 @@ const binance = new Binance().options({
       //   closebnbusdtOrder();
       // }
     }catch(e){
-      console.info("------------------Erro: "); console.info(e); console.info("------------------ previous futures order status Erro END");
+      console.log("------------------Erro: "); console.log(e); console.log("------------------ previous futures order status Erro END");
     }
   }
   
@@ -59,14 +59,14 @@ const binance = new Binance().options({
    var spot_prices = await binance.prices(static_vars.pair);
    var spot_bnb_usdt = spot_prices.ADAUSDT; 
    
-   console.info(bnbusdt+" | "+spot_bnb_usdt+" Diff: "+(bnbusdt - spot_bnb_usdt) );
+   console.log(bnbusdt+" | "+spot_bnb_usdt+" Diff: "+(bnbusdt - spot_bnb_usdt) );
 
     if((bnbusdt - spot_bnb_usdt) >= 0.0002 || (spot_bnb_usdt - bnbusdt) >= 0.0002){
       placeOrders(bnbusdt,spot_bnb_usdt);
     }
 
    }catch(e){
-   console.info(e+" ----- erro geting BNBUSDT futures price or BNB/USDT spot price");
+   console.log(e+" ----- erro geting BNBUSDT futures price or BNB/USDT spot price");
     }
     };
 
@@ -83,14 +83,14 @@ const binance = new Binance().options({
       var futures_order = await binance.futuresMarketSell( static_vars.pair, final_f_stake_amount);
       static_vars.futures_orderID = futures_order.orderId;
       static_vars.opendorder = true;
-      console.info( final_f_stake_amount );
+      console.log( final_f_stake_amount );
       closespot_bnb_usdtOrder();
-      console.info(futures_order);
+      console.log(futures_order);
       static_vars.onceFlag = true;
     }
     
   }catch(e){
-    console.log("------------------Erro: "); console.info(e); console.log("------------------order placement Erro END");
+    console.log("------------------Erro: "); console.log(e); console.log("------------------order placement Erro END");
   }
   }
 
@@ -98,29 +98,29 @@ const binance = new Binance().options({
     try{
       var spot_order = binance.marketBuy(static_vars.pair, spot_stake_amount);
     }catch{
-      console.info(e);
+      console.log(e);
     }
   }
 
   var closespot_bnb_usdtOrder = async function(){
     try{
     console.log("Closing spot order \n-----------------------------------------------------------");
-    console.info( await binance.marketSell(static_vars.pair, static_vars.purchase_spot_quantity));
+    console.log( await binance.marketSell(static_vars.pair, static_vars.purchase_spot_quantity));
     console.log("\n spot order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
-    console.info("------------------Erro:"); console.info(e); console.info("------------------spot order Erro END");
+    console.log("------------------Erro:"); console.log(e); console.log("------------------spot order Erro END");
   }
   }
 
   var closebnbusdtOrder = async function(){
     try{
     console.log("Closing futures order \n-----------------------------------------------------------");
-    console.info( await binance.futuresCancelAll(static_vars.pair));
+    console.log( await binance.futuresCancelAll(static_vars.pair));
     console.log("\n futures order closed successfully-------------------------------------------------------------------");
     static_vars.opendorder = false;
   }catch(e){
-    console.log("------------------Erro:"); console.info(e); console.log("------------------futures order Erro END");
+    console.log("------------------Erro:"); console.log(e); console.log("------------------futures order Erro END");
   }
   }
 
@@ -128,7 +128,7 @@ const binance = new Binance().options({
     try{
     var levrageAdjust = await binance.futuresLeverage( static_vars.pair, static_vars.leverage );
   }catch(e){
-    console.log("------------------Erro: "); console.info(e); console.log("------------------acc setup Erro END");
+    console.log("------------------Erro: "); console.log(e); console.log("------------------acc setup Erro END");
   }
   }
 
