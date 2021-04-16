@@ -25,16 +25,19 @@ const binance = new Binance().options({
         if(static_vars.opendorder){
 
           var futureprices = await binance.futuresPrices();
-          var bnbusdt = futureprices.BNBUSDT;
+          var bnbusdt = futureprices.ADAUSDT;
           // var spot_prices = await binance.prices(static_vars.pair);
           // var spot_bnb_usdt = spot_prices.BNBUSDT; 
     
           var prev_order = await binance.futuresOrderStatus( static_vars.pair, {orderId: static_vars.futures_orderID} ) 
           
-          if((bnbusdt - static_vars.purchase_spot_price) >= bnbusdt){
+          if(bnbusdt <= (static_vars.purchase_spot_price * 0.3)){
             closebnbusdtOrder();
+            closespot_bnb_usdtOrder();
           }else if(prev_order.status !== "FILLED"){
             closespot_bnb_usdtOrder();
+          }else{
+            console.log("close point not reached");
           }
           
         }else{
@@ -56,7 +59,7 @@ const binance = new Binance().options({
    var spot_prices = await binance.prices(static_vars.pair);
    var spot_bnb_usdt = spot_prices.ADAUSDT; 
    
-   console.info(bnbusdt+" | "+spot_bnb_usdt+" Diff: "+((bnbusdt - spot_bnb_usdt) * -1));
+   console.info(bnbusdt+" | "+spot_bnb_usdt+" Diff: "+(bnbusdt - spot_bnb_usdt) );
 
     if((bnbusdt - spot_bnb_usdt) >= 0.0002 || (spot_bnb_usdt - bnbusdt) >= 0.0002){
       placeOrders(bnbusdt,spot_bnb_usdt);
@@ -74,14 +77,14 @@ const binance = new Binance().options({
     var spot_stake_amount = Number( (static_vars.spendAmount/spot_bnb_usdt).toPrecision(1) );
 
     if (final_f_stake_amount >= static_vars.pair_step){
-      var spot_order = await binance.marketBuy(static_vars.pair, spot_stake_amount);
+      placeSpotOder();
       static_vars.purchase_spot_quantity = spot_stake_amount;
       static_vars.purchase_spot_price = spot_bnb_usdt;
       var futures_order = await binance.futuresMarketSell( static_vars.pair, final_f_stake_amount);
       static_vars.futures_orderID = futures_order.orderId;
       static_vars.opendorder = true;
       console.info( final_f_stake_amount );
-      console.info(spot_order);
+      closespot_bnb_usdtOrder();
       console.info(futures_order);
       static_vars.onceFlag = true;
     }
@@ -89,6 +92,14 @@ const binance = new Binance().options({
   }catch(e){
     console.log("------------------Erro: "); console.info(e); console.log("------------------order placement Erro END");
   }
+  }
+
+  var placeSpotOder = async function(){
+    try{
+      var spot_order = binance.marketBuy(static_vars.pair, spot_stake_amount);
+    }catch{
+      console.info(e);
+    }
   }
 
   var closespot_bnb_usdtOrder = async function(){
