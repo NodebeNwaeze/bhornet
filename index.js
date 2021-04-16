@@ -35,7 +35,7 @@ const binance = new Binance().options({
             closebnbusdtOrder();
             closespot_bnb_usdtOrder();
           }else if(prev_order.status !== "FILLED"){
-            closespot_bnb_usdtOrder();
+            // closespot_bnb_usdtOrder();
           }else{
             console.log("close point not reached");
           }
